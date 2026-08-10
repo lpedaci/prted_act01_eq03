@@ -104,6 +104,8 @@
   --wrap-pad:  clamp(16px, 4vw, 22px);
   --topbar-h:  52px;              /* alto aproximado, usado por scroll-padding */
   --hero-img-max: 500px;
+  --card-img-max: 260px;          /* ancho máximo de la foto en una tarjeta  */
+  --card-img-max-h: 400px;        /* techo de alto: acota retratos muy largos */
   --measure:   56ch;              /* ancho cómodo de lectura                   */
 
   /* --- Línea de tiempo -------------------------------------------------- */

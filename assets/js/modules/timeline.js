@@ -50,6 +50,23 @@
     }).join('');
   }
 
+  function buildMedia(image) {
+    if (!image) { return ''; }
+
+    /* loading="lazy": las fotos están bajo el pliegue, no deben
+       competir con el primer render. */
+    return '<figure class="card__media">' +
+             '<img src="' + image.src + '"' +
+                 ' width="' + image.width + '"' +
+                 ' height="' + image.height + '"' +
+                 ' alt="' + image.alt + '"' +
+                 ' loading="lazy" decoding="async">' +
+             (image.caption
+               ? '<figcaption class="hand">' + image.caption + '</figcaption>'
+               : '') +
+           '</figure>';
+  }
+
   function buildEvent(event, person, side) {
     var classNames = ['event', 'tone-' + person.tone];
 
@@ -66,6 +83,7 @@
       '<div class="card">' +
         '<h4 class="card__title">' + event.title + '</h4>' +
         '<p>' + event.text + '</p>' +
+        buildMedia(event.image) +
         buildQuotes(event.quotes) +
       '</div>'
     );

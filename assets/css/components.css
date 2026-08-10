@@ -85,6 +85,35 @@
   font-size: var(--fs-sm);
 }
 
+/* --- Foto dentro de una tarjeta ------------------------------------------ */
+/* Sin recorte: se respeta la proporción original de cada foto y se limita
+   el ancho, para que un retrato vertical no domine la tarjeta. */
+.card__media{
+  margin: var(--sp-4) 0 0;
+  text-align: center;
+}
+
+.card__media img{
+  width: 100%;
+  max-width: var(--card-img-max);
+  /* Solo los retratos que superan el techo se recortan, y desde abajo:
+     object-position mantiene visible la parte alta, donde están las caras. */
+  max-height: var(--card-img-max-h);
+  object-fit: cover;
+  object-position: center 25%;
+  margin-inline: auto;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.card__media figcaption{
+  margin-top: var(--sp-2);
+  font-size: var(--fs-hand);
+  line-height: 1.2;
+  color: var(--c-ink-soft);
+}
+
 /* --- Cita --------------------------------------------------------------- */
 .cita{
   margin-top: var(--sp-3);

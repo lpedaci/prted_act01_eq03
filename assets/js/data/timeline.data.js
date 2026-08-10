@@ -10,6 +10,9 @@
      title  -> título del hito
      text   -> relato (admite <mark class="hl"> para resaltar)
      quotes -> lista de citas { text, source }; [] si no hay
+     image  -> foto opcional { src, width, height, alt, caption }
+               width/height son los reales del archivo: evitan
+               que la página "salte" mientras carga.
    ============================================================= */
 
 (function (global) {
@@ -155,6 +158,13 @@
       date: 'Docencia',
       title: 'La tecnología en la sala',
       text: 'Planificaciones, videos de reuniones, <mark class="hl">juegos educativos</mark> y cursos de formación continua.',
+      image: {
+        src: 'assets/img/silvia-actual.jpg',
+        width: 1000,
+        height: 973,
+        alt: 'Silvia de espaldas frente a su notebook, con la plataforma de Tecnología Educativa en pantalla y un mate al lado.',
+        caption: 'Formándome hoy'
+      },
       quotes: [{
         text: 'una incumbencia cultural a la hora de incorporar las nuevas tecnologías digitales a las situaciones de enseñanza, que permita los necesarios procesos de adaptación e integración, especialmente de las tecnologías de la información y la comunicación',
         source: '(De Pablos Pons, 2009, p. 97)'
@@ -177,6 +187,13 @@
       date: 'Docencia',
       title: 'La tecnología en mis clases',
       text: 'Como Profesora de Economía me permitió actualizarme, crear contenidos y <mark class="hl">acompañar a mis estudiantes de Fines</mark>, por ejemplo armando sus CV con computadoras, celulares y apps.',
+      image: {
+        src: 'assets/img/clara-recibida-profe.jpg',
+        width: 750,
+        height: 1000,
+        alt: 'Clara festejando su graduación, cubierta de espuma y sosteniendo un marco casero que dice «Decime profe».',
+        caption: 'Recibida de profe · 2021'
+      },
       quotes: [{
         text: 'las tecnologías sociales, las formas de hacer la vida',
         source: '(Sancho Gil, 2009, p. 47)'
@@ -188,6 +205,13 @@
       date: '2020 · Pandemia',
       title: 'Referente tecnológica',
       text: 'Me convertí en la <mark class="hl">referente tecnológica</mark> de la escuela; coordinaba el Padlet para compartir con las familias.',
+      image: {
+        src: 'assets/img/silvia-pandemia.jpg',
+        width: 805,
+        height: 1000,
+        alt: 'Reunión por videollamada del equipo docente de la escuela infantil, vista en el monitor y en la notebook del escritorio.',
+        caption: 'Reunión por Meet · mayo de 2020'
+      },
       quotes: [{
         text: 'el profesorado tiene un papel fundamental a la hora de determinar lo que es posible realizar con las TIC en el aula',
         source: '(Sancho Gil, 2009, p. 64)'
@@ -199,6 +223,13 @@
       date: '2020 · Pandemia',
       title: 'Sin límites de horario',
       text: 'Hice la <mark class="hl">residencia virtual</mark> mientras trabajaba. Lo virtual fue el puente para conectar, pero no poder desconectar me pasó factura en la salud. Eso disparó mi interés por profundizar cómo media la tecnología en los estudiantes y en nosotros como personas: para algunos puede ser positiva y con propósito, pero sin un límite claro se vuelve un problema que se profundiza a mediano y largo plazo.',
+      image: {
+        src: 'assets/img/lourdes-recibida-2020.jpg',
+        width: 506,
+        height: 1000,
+        alt: 'Lourdes sonriendo el día de su graduación, junto a un acompañante en el salón del acto.',
+        caption: 'Recibida · 2020'
+      },
       quotes: [
         {
           text: 'lo que parece estar haciendo la Web es debilitar mi capacidad de concentración y contemplación',
