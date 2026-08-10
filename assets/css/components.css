@@ -1,0 +1,132 @@
+/* =============================================================
+   COMPONENTES
+   Piezas reutilizables: foto enmarcada, indicador de scroll,
+   tarjeta, cita y listado de referencias.
+   ============================================================= */
+
+/* --- Foto enmarcada (estilo polaroid) ---------------------------------- */
+.frame{
+  position: relative;
+  display: inline-block;
+  margin: var(--sp-1) auto var(--sp-2);
+  transform: rotate(-1.4deg);
+}
+
+/* "Cinta adhesiva" decorativa */
+.frame::before{
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(3deg);
+  width: 118px;
+  height: 26px;
+  background: rgb(var(--rgb-violet) / var(--op-tape));
+  border: 1px dashed rgb(var(--rgb-violet) / var(--op-tape-line));
+  border-radius: 3px;
+}
+
+.frame img{
+  width: min(var(--hero-img-max), 86vw);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  padding: 10px 10px 14px;
+  box-shadow: var(--shadow);
+}
+
+.frame figcaption{
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: var(--fs-hand);
+  color: var(--c-ink-soft);
+  margin-top: var(--sp-2);
+  max-width: min(var(--hero-img-max), 86vw);
+}
+
+/* --- Indicador de scroll ------------------------------------------------ */
+.scrollcue{
+  margin-top: var(--sp-6);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: var(--fs-hand);
+  color: var(--c-violet);
+}
+
+.scrollcue span{
+  display: inline-block;
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+@keyframes bob{
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(7px); }
+}
+
+/* --- Tarjeta ------------------------------------------------------------ */
+.card{
+  position: relative;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  padding: var(--sp-block) clamp(14px, 3.5vw, 20px);
+  box-shadow: var(--shadow);
+}
+
+.card__title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  margin: 0 0 var(--sp-1);
+}
+
+.card p{
+  margin: 0;
+  color: var(--c-ink-body);
+  font-size: var(--fs-sm);
+}
+
+/* --- Cita --------------------------------------------------------------- */
+.cita{
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 3px solid var(--c-line);
+  background: rgb(var(--rgb-ink) / var(--op-veil));
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  text-align: left;
+}
+
+.cita .q{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--c-ink-quote);
+}
+
+.cita .q::before{ content: "\201C"; color: var(--c-gold); font-weight: 900; }
+.cita .q::after { content: "\201D"; color: var(--c-gold); font-weight: 900; }
+
+.cita .src{
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--c-ink-soft);
+}
+
+/* --- Referencias (formato APA con sangría francesa) --------------------- */
+.refs{
+  margin-top: var(--sp-3);
+  padding-bottom: var(--sp-3);
+}
+
+.refs .ref{
+  max-width: 760px;
+  margin: 0 auto var(--sp-3);
+  padding-left: 2.3em;
+  text-indent: -2.3em;
+  font-size: var(--fs-sm);
+  color: var(--c-ink-body);
+}
+
+.refs .ref i{
+  font-style: italic;
+}

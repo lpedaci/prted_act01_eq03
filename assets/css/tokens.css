@@ -1,0 +1,128 @@
+/* =============================================================
+   TOKENS DE DISEÑO
+   Única fuente de verdad para color, tipografía, espaciado,
+   sombras y medidas de layout.
+   Ningún otro archivo debe declarar literales de color o tamaño:
+   si hace falta un valor nuevo, se agrega acá como variable.
+   ============================================================= */
+
+:root{
+
+  /* --- Color: triplas RGB, para poder componer transparencias ---------- */
+  --rgb-paper:      250 246 239;
+  --rgb-surface:    255 255 255;
+  --rgb-ink:         46  42  57;
+  --rgb-ink-soft:   107 101 119;
+  --rgb-ink-body:    65  60  77;
+  --rgb-ink-quote:   74  69  87;
+  --rgb-line:       230 221 207;
+
+  --rgb-teal:        18 163 153;
+  --rgb-violet:     123  79 196;
+  --rgb-pink:       224  86 142;
+  --rgb-gold:       235 165  58;
+
+  /* --- Color: valores de uso ------------------------------------------ */
+  --c-paper:      rgb(var(--rgb-paper));
+  --c-surface:    rgb(var(--rgb-surface));
+  --c-ink:        rgb(var(--rgb-ink));
+  --c-ink-soft:   rgb(var(--rgb-ink-soft));
+  --c-ink-body:   rgb(var(--rgb-ink-body));
+  --c-ink-quote:  rgb(var(--rgb-ink-quote));
+  --c-line:       rgb(var(--rgb-line));
+
+  --c-teal:       rgb(var(--rgb-teal));
+  --c-violet:     rgb(var(--rgb-violet));
+  --c-pink:       rgb(var(--rgb-pink));
+  --c-gold:       rgb(var(--rgb-gold));
+
+  /* --- Opacidades reutilizables --------------------------------------- */
+  --op-border:      .40;   /* bordes teñidos por persona                   */
+  --op-veil:        .035;  /* fondo sutil de las citas                     */
+  --op-dots:        .06;   /* trama de puntitos del fondo                  */
+  --op-tape:        .18;   /* "cinta adhesiva" sobre la foto               */
+  --op-tape-line:   .40;
+
+  /* --- Degradés de marca ----------------------------------------------- */
+  --gradient-brand: linear-gradient(100deg, var(--c-teal), var(--c-violet) 55%, var(--c-pink));
+  --gradient-rail:  linear-gradient(var(--c-teal), var(--c-violet) 55%, var(--c-pink));
+  --gradient-mark:  linear-gradient(115deg,
+                      rgb(var(--rgb-gold) / .30),
+                      rgb(var(--rgb-gold) / .48));
+
+  /* --- Tipografía ------------------------------------------------------ */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:    "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand:    "Caveat", "Segoe Script", cursive;
+
+  --fs-hero:   clamp(2.25rem, 7vw,   5.10rem);
+  --fs-h2:     clamp(1.65rem, 4.4vw, 2.90rem);
+  --fs-h3:     clamp(1.15rem, 2.6vw, 1.28rem);
+  --fs-quote:  clamp(1.15rem, 3vw,   1.70rem);
+  --fs-lede:   clamp(1.00rem, 2.4vw, 1.12rem);
+  --fs-date:   clamp(1.25rem, 3.4vw, 1.45rem);
+  --fs-hand:   clamp(1.10rem, 2.8vw, 1.35rem);
+  --fs-base:   1rem;
+  --fs-sm:     .92rem;
+  --fs-xs:     .84rem;
+  --fs-2xs:    .78rem;
+  --fs-3xs:    .70rem;
+
+  --lh-body:   1.6;
+  --lh-tight:  1.15;
+
+  /* --- Espaciado (escala de 4px) --------------------------------------- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 22px;
+  --sp-6: 28px;
+  --sp-7: 36px;
+  --sp-8: 48px;
+  --sp-9: 64px;
+  --sp-10:80px;
+
+  /* Espaciados fluidos (se achican solos en mobile) */
+  --sp-section: clamp(28px, 6vw, 52px);
+  --sp-block:   clamp(16px, 3.5vw, 22px);
+
+  /* --- Radios ---------------------------------------------------------- */
+  --r-sm:   8px;
+  --r-md:  14px;
+  --r-lg:  16px;
+  --r-xl:  18px;
+  --r-pill: 999px;
+
+  /* --- Sombras --------------------------------------------------------- */
+  --shadow:      0 14px 34px rgb(var(--rgb-ink) / .10);
+  --shadow-sm:   0  6px 16px rgb(var(--rgb-ink) / .08);
+  --shadow-glow: 0 0 10px    rgb(var(--rgb-violet) / .35);
+
+  /* --- Layout ---------------------------------------------------------- */
+  --wrap-max:  1060px;
+  --wrap-pad:  clamp(16px, 4vw, 22px);
+  --topbar-h:  52px;              /* alto aproximado, usado por scroll-padding */
+  --hero-img-max: 500px;
+  --measure:   56ch;              /* ancho cómodo de lectura                   */
+
+  /* --- Línea de tiempo -------------------------------------------------- */
+  --rail-w:          4px;
+  --rail-x:          50%;         /* eje central en desktop; se reubica en mobile */
+  --node-size:      20px;
+  --node-size-joint: 26px;
+  --node-ring:       4px;
+  --arrow-size:     11px;
+  --event-gap:      42px;         /* separación entre el eje y la tarjeta        */
+
+  /* --- Movimiento ------------------------------------------------------- */
+  --dur-base: .6s;
+  --dur-slow: .8s;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+
+  /* --- Capas (z-index) --------------------------------------------------- */
+  --z-node:   2;
+  --z-band:   3;
+  --z-topbar: 50;
+  --z-skip:   100;
+}

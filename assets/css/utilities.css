@@ -1,0 +1,69 @@
+/* =============================================================
+   UTILIDADES
+   Clases sueltas de apoyo, animaciones de entrada y respeto
+   por las preferencias de movimiento del sistema.
+   Este archivo va último: cierra la cascada.
+   ============================================================= */
+
+/* --- Tipografía manuscrita ---------------------------------------------- */
+.hand{
+  font-family: var(--font-hand);
+  font-weight: 700;
+}
+
+/* --- Resaltado tipo marcador -------------------------------------------- */
+mark.hl{
+  background: var(--gradient-mark);
+  color: inherit;
+  padding: .02em .2em;
+  margin: 0 -.03em;
+  border-radius: .4em .6em .45em .55em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* --- Entrada escalonada de la portada ------------------------------------ */
+.rise{
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise var(--dur-slow) var(--ease-out) forwards;
+}
+
+.rise--1{ animation-delay: .05s; }
+.rise--2{ animation-delay: .20s; }
+.rise--3{ animation-delay: .35s; }
+.rise--4{ animation-delay: .50s; }
+.rise--5{ animation-delay: .65s; }
+.rise--6{ animation-delay: .80s; }
+
+@keyframes rise{
+  to{
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =============================================================
+   PREFERENCIA DE MOVIMIENTO REDUCIDO
+   Todo el contenido queda visible sin animaciones.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html{
+    scroll-behavior: auto;
+  }
+
+  .rise,
+  .event,
+  .phase{
+    opacity: 1;
+    transform: none;
+  }
+}
