@@ -247,6 +247,13 @@
       date: 'Hoy',
       title: 'Del cómo al para qué',
       text: 'Mi mirada ya no está solo en aprender a usar una herramienta, sino en preguntarme <mark class="hl">para qué usarla</mark>, qué aporta y qué necesidad educativa ayuda a resolver.',
+      image: {
+        src: 'assets/img/clara-actual.jpg',
+        width: 688,
+        height: 824,
+        alt: 'Clara sonriendo frente a su notebook abierta, sentada a la mesa de su casa.',
+        caption: 'Hoy'
+      },
       quotes: [{
         text: 'la tecnología de la educación ya no se refiere solamente a productos o equipos, sino a pensar cuidadosamente acerca de la enseñanza y el aprendizaje',
         source: '(De Pablos Pons, 2009, p. 109)'
