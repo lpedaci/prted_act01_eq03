@@ -176,6 +176,13 @@
       date: '2017',
       title: 'Profesora en escuela técnica',
       text: 'Sistemas operativos, seguridad informática y ciudadanía digital, gestión de proyectos y mantenimiento de sistemas. Ahí busco vincular el <mark class="hl">comportamiento humano con los medios tecnológicos</mark> (UX, Ciencias del Comportamiento).',
+      image: {
+        src: 'assets/img/lourdes-profesora.jpg',
+        width: 801,
+        height: 1000,
+        alt: 'Proyección de la presentación «Smart Cities» de 6° Informática A y B en el salón de la escuela técnica, con una notebook operando la transmisión en primer plano.',
+        caption: 'Proyecto Smart Cities · 6° Informática'
+      },
       quotes: [{
         text: 'Resituar el foco de atención del estudio de la interacción de los individuos con los medios',
         source: '(Sancho Gil, 2009, p. 59)'
