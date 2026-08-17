@@ -167,6 +167,15 @@
   function prepareClone(clonedDoc, cfg, railHeight) {
     clonedDoc.documentElement.classList.add(cfg.export.exportingClass);
 
+    /* En el clon el scripting está deshabilitado, así que el contenido de
+       <noscript> deja de ser texto inerte y pasa a ser DOM real. Se dibuja
+       con una caja de ancho cero: la frase se parte en muchas líneas
+       apiladas en el mismo punto y ensucia el encabezado. En una imagen no
+       aporta nada, así que se quita. */
+    Array.prototype.forEach.call(clonedDoc.querySelectorAll('noscript'), function (node) {
+      node.parentNode.removeChild(node);
+    });
+
     var hidden = clonedDoc.querySelectorAll(cfg.selectors.revealables);
     Array.prototype.forEach.call(hidden, function (node) {
       node.classList.add(cfg.classes.visible);
