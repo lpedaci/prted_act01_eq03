@@ -28,14 +28,16 @@
     },
 
     /* Exportación a PNG.
-       maxScale  -> tope de nitidez (2 = el doble de resolución)
-       maxPixels -> presupuesto total, para no agotar memoria
-       maxEdge   -> lado máximo que aceptan los canvas de Safari */
+       maxScale   -> tope de nitidez (2 = el doble de resolución)
+       maxPixels  -> presupuesto de memoria del lienzo
+       scaleSteps -> escalas a intentar, de mayor a menor. El módulo
+                     prueba cada una creando un canvas del tamaño real,
+                     así respeta los límites del navegador sin adivinarlos. */
     export: {
       fileName:        'tecnoautobiografia-equipo03',
       maxScale:        2,
-      maxPixels:       40000000,
-      maxEdge:         16384,
+      maxPixels:       80000000,
+      scaleSteps:      [2, 1.75, 1.5, 1.25, 1],
       exportingClass:  'is-exporting',
       capturingClass:  'is-capturing'
     },

@@ -53,13 +53,57 @@
     }
   }
 
-  /* El factor de escala se acota por presupuesto de píxeles y por el
-     lado máximo que admite un canvas: una página muy larga no puede
-     multiplicarse por 2 sin pasarse. */
+  /* ¿Se puede realmente crear y leer un canvas de este tamaño?
+     Los navegadores tienen dos topes distintos —lado máximo y área
+     máxima— y varían mucho entre equipos (en iOS el área es bastante
+     chica). En vez de adivinarlos, se prueba el tamaño exacto que hace
+     falta y se libera el lienzo enseguida. */
+  function canAllocate(width, height) {
+    var probe = doc.createElement('canvas');
+    var ok    = false;
+
+    try {
+      probe.width  = width;
+      probe.height = height;
+
+      var ctx = probe.getContext('2d');
+      if (ctx) {
+        /* Se pinta y se lee la última esquina: si el lienzo no se creó
+           del todo, vuelve transparente en vez de fallar. */
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(width - 1, height - 1, 1, 1);
+        ok = ctx.getImageData(width - 1, height - 1, 1, 1).data[3] !== 0;
+      }
+    } catch (err) {
+      ok = false;
+    }
+
+    probe.width  = 0;
+    probe.height = 0;
+    return ok;
+  }
+
+  /* Elige la mayor escala que el navegador aguante de verdad. */
   function pickScale(width, height, limits) {
-    var byPixels = Math.sqrt(limits.maxPixels / (width * height));
-    var byEdge   = limits.maxEdge / Math.max(width, height);
-    return Math.max(1, Math.min(limits.maxScale, byPixels, byEdge));
+    var steps   = (limits.scaleSteps && limits.scaleSteps.length)
+      ? limits.scaleSteps
+      : [2, 1.5, 1];
+
+    /* Techo por presupuesto de memoria, además del tope configurado */
+    var ceiling = Math.min(
+      limits.maxScale || 2,
+      Math.sqrt((limits.maxPixels || 40000000) / (width * height))
+    );
+
+    for (var i = 0; i < steps.length; i++) {
+      var scale = steps[i];
+      if (scale > ceiling) { continue; }
+      if (canAllocate(Math.round(width * scale), Math.round(height * scale))) {
+        return scale;
+      }
+    }
+
+    return 1;
   }
 
   function stamp() {
@@ -85,15 +129,55 @@
     global.setTimeout(function () { global.URL.revokeObjectURL(url); }, 10000);
   }
 
+  /* Recorre la página entera de arriba a abajo antes de capturar.
+     Con esto se "lee" todo el sitio: se disparan los observadores que
+     revelan los hitos, entran en pantalla las fotos diferidas y el riel
+     de progreso se completa. Recién después se saca la imagen. */
+  function warmUp() {
+    var step  = Math.max(200, global.innerHeight * 0.9);
+    var total = doc.documentElement.scrollHeight;
+    var y     = 0;
+
+    return new Promise(function (resolve) {
+      function next() {
+        if (y >= total) {
+          global.scrollTo(0, 0);
+          /* Un par de cuadros para que el salto al tope se asiente */
+          global.requestAnimationFrame(function () {
+            global.requestAnimationFrame(resolve);
+          });
+          return;
+        }
+
+        global.scrollTo(0, y);
+        y += step;
+
+        /* Dos cuadros por paso: uno aplica el scroll, el otro le da lugar
+           al IntersectionObserver para que marque los hitos como visibles. */
+        global.requestAnimationFrame(function () {
+          global.requestAnimationFrame(next);
+        });
+      }
+      next();
+    });
+  }
+
   /* Prepara el clon que html2canvas va a dibujar. Se toca el clon y no
      la página real, así el usuario no ve ningún parpadeo. */
-  function prepareClone(clonedDoc, cfg) {
+  function prepareClone(clonedDoc, cfg, railHeight) {
     clonedDoc.documentElement.classList.add(cfg.export.exportingClass);
 
     var hidden = clonedDoc.querySelectorAll(cfg.selectors.revealables);
     Array.prototype.forEach.call(hidden, function (node) {
       node.classList.add(cfg.classes.visible);
     });
+
+    /* El riel va dibujado completo: en una imagen estática no tiene
+       sentido que el progreso dependa de dónde quedó el scroll. */
+    var bar = clonedDoc.querySelector(cfg.selectors.progress);
+    if (bar && railHeight) {
+      bar.style.height = railHeight + 'px';
+    }
   }
 
   /* --- API -------------------------------------------------------------- */
@@ -146,8 +230,20 @@
             return doc.fonts && doc.fonts.ready ? doc.fonts.ready : null;
           })
           .then(function () {
+            say('Recorriendo la página…');
+
+            /* Desactiva el scroll suave: el recorrido tiene que ser inmediato */
+            doc.documentElement.classList.add(cfg.export.capturingClass);
+            return warmUp();
+          })
+          .then(function () {
+            /* El recorrido pudo haber disparado fotos que antes no se
+               habían pedido: se espera a que terminen de cargar. */
+            return loadAll(Array.prototype.slice.call(doc.images));
+          })
+          .then(function () {
             /* Sonda de permisos antes de gastar tiempo y memoria */
-            var photo = images.filter(function (img) {
+            var photo = Array.prototype.slice.call(doc.images).filter(function (img) {
               return img.complete && img.naturalWidth > 0;
             })[0];
 
@@ -159,9 +255,11 @@
 
             say('Generando la imagen…');
 
-            /* Capturar desde arriba evita desfasajes de posición */
-            doc.documentElement.classList.add(cfg.export.capturingClass);
-            global.scrollTo(0, 0);
+            /* Se mide con todo ya cargado: las alturas están definitivas */
+            var timeline   = doc.querySelector(cfg.selectors.timeline);
+            var railHeight = timeline
+              ? Math.round(timeline.getBoundingClientRect().height)
+              : 0;
 
             var width  = doc.documentElement.scrollWidth;
             var height = doc.documentElement.scrollHeight;
@@ -175,7 +273,9 @@
               useCORS: true,
               allowTaint: false,
               logging: false,
-              onclone: function (clonedDoc) { prepareClone(clonedDoc, cfg); }
+              onclone: function (clonedDoc) {
+                prepareClone(clonedDoc, cfg, railHeight);
+              }
             });
           })
           .then(function (canvas) {
