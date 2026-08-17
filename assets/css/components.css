@@ -34,21 +34,14 @@
   box-shadow: var(--shadow);
 }
 
-.frame figcaption{
-  font-family: var(--font-hand);
-  font-weight: 700;
-  font-size: var(--fs-hand);
-  color: var(--c-ink-soft);
-  margin-top: var(--sp-2);
-  max-width: min(var(--hero-img-max), 86vw);
-}
-
 /* --- Indicador de scroll ------------------------------------------------ */
+/* Pegado a la foto de portada: solo la flecha, sin texto */
 .scrollcue{
-  margin-top: var(--sp-6);
+  margin: var(--sp-2) 0 0;
   font-family: var(--font-hand);
   font-weight: 700;
   font-size: var(--fs-hand);
+  line-height: 1;
   color: var(--c-violet);
 }
 
@@ -105,6 +98,13 @@
   border: 1px solid var(--c-line);
   border-radius: var(--r-md);
   box-shadow: var(--shadow-sm);
+}
+
+/* Horizontal: el ancho de la tarjeta manda. El techo de alto no le
+   aplica, porque una panorámica nunca llega a estirarla. */
+.card__media--wide img{
+  max-width: 100%;
+  max-height: none;
 }
 
 .card__media figcaption{

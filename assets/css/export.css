@@ -1,0 +1,205 @@
+/* =============================================================
+   EXPORTACIÓN
+   Botón flotante, ajustes para la captura a PNG y hoja de
+   impresión (Guardar como PDF).
+   Va último en la cascada: necesita poder corregir lo anterior.
+   ============================================================= */
+
+/* --- Botón flotante ----------------------------------------------------- */
+.export{
+  position: fixed;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  z-index: var(--z-topbar);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  max-width: min(320px, calc(100vw - var(--sp-8)));
+}
+
+.export__btn,
+.export__print{
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-2xs);
+  font-weight: 800;
+  color: var(--c-surface);
+  background: var(--gradient-brand);
+  border: 0;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.export__btn:hover:not(:disabled),
+.export__print:hover{
+  filter: brightness(1.07);
+}
+
+.export__btn:disabled{
+  cursor: progress;
+  opacity: .65;
+}
+
+/* El camino alternativo se presenta como acción secundaria */
+.export__print{
+  background: var(--c-surface);
+  color: var(--c-ink);
+  border: 1.5px solid var(--c-line);
+  font-weight: 700;
+}
+
+.export__status{
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--fs-3xs);
+  line-height: 1.35;
+  text-align: right;
+  color: var(--c-ink);
+  background: rgb(var(--rgb-surface) / .95);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Vacío no debe dejar una cajita flotando */
+.export__status:empty{
+  display: none;
+}
+
+@media (max-width: 480px){
+  .export{
+    right: var(--sp-2);
+    bottom: var(--sp-2);
+    max-width: calc(100vw - var(--sp-5));
+  }
+
+  .export__btn,
+  .export__print{
+    padding: var(--sp-2) var(--sp-3);
+  }
+}
+
+/* --- Durante la captura -------------------------------------------------- */
+/* Solo desactiva el scroll suave, para poder ir al tope sin animación.
+   No cambia nada visual. */
+.is-capturing{
+  scroll-behavior: auto !important;
+}
+
+/* =============================================================
+   MODO EXPORTACIÓN
+   Se aplica únicamente al clon que dibuja html2canvas.
+   Corrige lo que el capturador no sabe renderizar y quita lo
+   que no tiene sentido en una imagen estática.
+   ============================================================= */
+
+/* html2canvas no soporta background-clip:text: el texto con degradé
+   saldría invisible. Se pasa a color pleno. */
+.is-exporting .topbar__brand,
+.is-exporting .hero__title .is-gradient,
+.is-exporting .event--joint .date{
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--c-violet) !important;
+}
+
+/* Sin barra pegada ni desenfoque: en una imagen estorban */
+.is-exporting .topbar{
+  position: static !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: var(--c-paper) !important;
+}
+
+/* Todo visible: sin animaciones a medio camino */
+.is-exporting .rise,
+.is-exporting .event,
+.is-exporting .phase{
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Elementos que solo tienen sentido en pantalla */
+.is-exporting .scrollcue,
+.is-exporting .skip-link,
+.is-exporting .export{
+  display: none !important;
+}
+
+/* =============================================================
+   IMPRESIÓN · el camino que funciona sin servidor
+   ============================================================= */
+@media print{
+
+  @page{
+    margin: 12mm;
+  }
+
+  /* La trama de puntitos es ruido en papel */
+  body{
+    background-image: none !important;
+    background-color: #fff !important;
+  }
+
+  .topbar{
+    position: static !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: none !important;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  /* Sin esto los hitos se imprimen en blanco: quedan en opacidad 0
+     si nunca entraron en pantalla. */
+  .rise,
+  .event,
+  .phase{
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* El degradé sobre texto no es confiable si el navegador imprime
+     sin gráficos de fondo */
+  .topbar__brand,
+  .hero__title .is-gradient,
+  .event--joint .date{
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    color: var(--c-violet) !important;
+  }
+
+  /* Que no se corte una tarjeta al medio entre páginas */
+  .event,
+  .phase,
+  .card,
+  .cita,
+  .card__media,
+  .refs .ref{
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .site-footer{
+    margin-top: var(--sp-6);
+    break-before: avoid;
+  }
+
+  /* Fuera lo que no aporta en papel */
+  .scrollcue,
+  .skip-link,
+  .export,
+  .timeline__progress{
+    display: none !important;
+  }
+}

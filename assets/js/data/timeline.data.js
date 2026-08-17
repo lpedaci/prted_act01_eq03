@@ -67,7 +67,14 @@
       phase: 'desc',
       date: 'Infancia (~10)',
       title: 'Rodeada de electrónica',
-      text: 'Mi papá, técnico electrónico, reparaba diversos aparatos electrónicos en casa. La <mark class="hl">reparación de una computadora me fascinó</mark>. En casa el acceso a internet era limitado, y eso me impulsó todavía más.',
+      text: 'Mi vínculo con la tecnología no empezó frente a una computadora, sino con el hardware: cables, olor a estaño de soldadura y componentes desarmados sobre la mesa. Crecí viendo a mi papá, técnico electrónico, reparar aparatos, y para mí lo tecnológico era algo <mark class="hl">físico, tangible y transformable</mark>. Muy chica recuerdo su ZX Spectrum y, más tarde, la Pentium 3 de escritorio que me parecía toda una novedad.',
+      image: {
+        src: 'assets/img/lourdes-infancia.jpg',
+        width: 1000,
+        height: 545,
+        alt: 'Ilustración de una nena mirando un monitor Pentium III en un taller de electrónica, con un teclado ZX Spectrum, un soldador y placas de circuito sobre la mesa.',
+        caption: 'El taller de papá: ZX Spectrum y Pentium III'
+      },
       quotes: []
     },
     {

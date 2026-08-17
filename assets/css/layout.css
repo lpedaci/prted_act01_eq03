@@ -75,7 +75,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--sp-section) var(--wrap-pad);
+  /* Abajo va ajustado a propósito: acerca la línea de tiempo a la portada */
+  padding: var(--sp-section) var(--wrap-pad) var(--sp-3);
 }
 
 .hero__title{
@@ -105,14 +106,7 @@
 /* --- Cabecera de sección ----------------------------------------------- */
 .section-head{
   text-align: center;
-  margin: var(--sp-7) auto var(--sp-2);
-}
-
-.eyebrow{
-  font-family: var(--font-hand);
-  font-weight: 700;
-  font-size: var(--fs-hand);
-  color: var(--c-teal);
+  margin: var(--sp-4) auto var(--sp-2);
 }
 
 .section-head h2{
@@ -125,7 +119,8 @@
 /* --- Pie de página ------------------------------------------------------ */
 .site-footer{
   margin-top: var(--sp-10);
-  padding: var(--sp-section) var(--wrap-pad) calc(var(--sp-section) + var(--sp-2));
+  /* Abajo alcanza con un margen corto: no hace falta aire después de la firma */
+  padding: var(--sp-section) var(--wrap-pad) var(--sp-5);
   text-align: center;
   background: var(--c-surface);
   border-top: 1px solid var(--c-line);
@@ -148,11 +143,12 @@
 }
 
 .site-footer__sign{
+  /* Sin margen inferior: es el último elemento, el aire lo da el padding */
+  margin: var(--sp-4) 0 0;
   font-family: var(--font-hand);
   font-weight: 700;
   font-size: var(--fs-hand);
   color: var(--c-ink-soft);
-  margin-top: var(--sp-4);
 }
 
 /* =============================================================

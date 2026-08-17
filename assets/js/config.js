@@ -15,12 +15,29 @@
     selectors: {
       timeline:    '#timeline',
       progress:    '#progress',
-      revealables: '.event, .phase'
+      revealables: '.event, .phase',
+      exportRoot:   'body',        /* qué se captura: la página completa */
+      exportButton: '#export-btn',
+      exportPrint:  '#export-print',
+      exportStatus: '#export-status'
     },
 
     /* Clases que aplica el JS */
     classes: {
       visible: 'is-visible'
+    },
+
+    /* Exportación a PNG.
+       maxScale  -> tope de nitidez (2 = el doble de resolución)
+       maxPixels -> presupuesto total, para no agotar memoria
+       maxEdge   -> lado máximo que aceptan los canvas de Safari */
+    export: {
+      fileName:        'tecnoautobiografia-equipo03',
+      maxScale:        2,
+      maxPixels:       40000000,
+      maxEdge:         16384,
+      exportingClass:  'is-exporting',
+      capturingClass:  'is-capturing'
     },
 
     /* Aparición progresiva de los hitos al hacer scroll */

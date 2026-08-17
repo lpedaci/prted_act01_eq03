@@ -15,6 +15,7 @@
     App.timeline.render(doc.querySelector(App.config.selectors.timeline));
     App.reveal.init();
     App.progress.init();
+    App.exporter.init();
   }
 
   if (doc.readyState === 'loading') {

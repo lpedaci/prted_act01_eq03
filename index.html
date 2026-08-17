@@ -21,14 +21,17 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/timeline.css">
   <link rel="stylesheet" href="assets/css/utilities.css">
+  <link rel="stylesheet" href="assets/css/export.css">
 
   <!-- Scripts: defer mantiene el orden y no bloquea el render -->
+  <script defer src="assets/js/vendor/html2canvas.min.js"></script>
   <script defer src="assets/js/config.js"></script>
   <script defer src="assets/js/data/equipo.data.js"></script>
   <script defer src="assets/js/data/timeline.data.js"></script>
   <script defer src="assets/js/modules/timeline.js"></script>
   <script defer src="assets/js/modules/reveal.js"></script>
   <script defer src="assets/js/modules/progress.js"></script>
+  <script defer src="assets/js/modules/export.js"></script>
   <script defer src="assets/js/main.js"></script>
 </head>
 <body>
@@ -73,18 +76,17 @@
            height="582"
            alt="Ilustración de las tres integrantes del equipo saludando"
            decoding="async">
-      <figcaption>¡Hola! Bienvenido a nuestro recorrido como futuras Tecnólogas educativas.</figcaption>
     </figure>
 
-    <p class="scrollcue rise rise--4">
-      scrolleá<br><span aria-hidden="true">&#8595;</span>
+    <!-- Indicador de navegación: puramente visual, se oculta a lectores de pantalla -->
+    <p class="scrollcue rise rise--4" aria-hidden="true">
+      <span>&#8595;</span>
     </p>
   </section>
 
   <!-- ============ Línea de tiempo ============ -->
   <section class="wrap section" id="linea-de-tiempo">
     <div class="section-head">
-      <p class="eyebrow">de dónde venimos, a dónde vamos</p>
       <h2>Línea de tiempo</h2>
     </div>
 
@@ -120,6 +122,20 @@
   <p class="site-footer__credits">Equipo 03 &middot; Arguello, Costas y Pedaci</p>
   <p class="site-footer__sign">Licenciatura en Tecnología Educativa &middot; UTN &middot; Agosto 2026</p>
 </footer>
+
+<!-- Exportación. data-html2canvas-ignore lo excluye de la captura.
+     Los botones arrancan ocultos: sin JavaScript no harían nada. -->
+<div class="export" data-html2canvas-ignore>
+  <p class="export__status" id="export-status" role="status" aria-live="polite"></p>
+
+  <button type="button" class="export__btn" id="export-btn" hidden>
+    <span aria-hidden="true">&#8681;</span> Descargar como imagen
+  </button>
+
+  <button type="button" class="export__print" id="export-print" hidden>
+    <span aria-hidden="true">&#128424;</span> Imprimir o guardar en PDF
+  </button>
+</div>
 
 </body>
 </html>

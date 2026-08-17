@@ -53,9 +53,15 @@
   function buildMedia(image) {
     if (!image) { return ''; }
 
+    /* Las panorámicas aprovechan todo el ancho de la tarjeta; verticales
+       y casi cuadradas quedan acotadas para no estirarla de más.
+       El umbral evita que un cuadrado (1.0) cuente como panorámica. */
+    var isWide = image.width / image.height >= 1.2;
+    var shape  = isWide ? ' card__media--wide' : '';
+
     /* loading="lazy": las fotos están bajo el pliegue, no deben
        competir con el primer render. */
-    return '<figure class="card__media">' +
+    return '<figure class="card__media' + shape + '">' +
              '<img src="' + image.src + '"' +
                  ' width="' + image.width + '"' +
                  ' height="' + image.height + '"' +
