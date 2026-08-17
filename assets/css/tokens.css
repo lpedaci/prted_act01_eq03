@@ -46,9 +46,6 @@
   /* --- Degradés de marca ----------------------------------------------- */
   --gradient-brand: linear-gradient(100deg, var(--c-teal), var(--c-violet) 55%, var(--c-pink));
   --gradient-rail:  linear-gradient(var(--c-teal), var(--c-violet) 55%, var(--c-pink));
-  --gradient-mark:  linear-gradient(115deg,
-                      rgb(var(--rgb-gold) / .30),
-                      rgb(var(--rgb-gold) / .48));
 
   /* --- Tipografía ------------------------------------------------------ */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;

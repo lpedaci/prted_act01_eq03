@@ -30,6 +30,12 @@ body{
   overflow-x: clip;
 }
 
+/* El atributo hidden tiene que ganarle al display de cualquier componente:
+   la regla del navegador ([hidden]{display:none}) pierde contra una clase. */
+[hidden]{
+  display: none !important;
+}
+
 /* Medios fluidos por defecto: clave para que nada desborde en mobile */
 img,
 svg,

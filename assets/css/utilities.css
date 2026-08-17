@@ -11,15 +11,16 @@
   font-weight: 700;
 }
 
-/* --- Resaltado tipo marcador -------------------------------------------- */
+/* --- Frase destacada ----------------------------------------------------- */
+/* Sin fondo a propósito: el resaltado tipo marcador se rompía al cortarse
+   en varias líneas, porque cada fragmento repintaba el degradé y sus
+   bordes redondeados. Negrita y color no dependen del salto de línea.
+   El violeta es el único color de la paleta que alcanza 4.5:1 sobre el
+   blanco de la tarjeta (turquesa 3.1, rosa 3.6, oro 2.1). */
 mark.hl{
-  background: var(--gradient-mark);
-  color: inherit;
-  padding: .02em .2em;
-  margin: 0 -.03em;
-  border-radius: .4em .6em .45em .55em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  background: none;
+  color: var(--c-violet);
+  font-weight: 700;
 }
 
 /* --- Entrada escalonada de la portada ------------------------------------ */
